@@ -5,25 +5,42 @@ import { useEffect } from 'react'
 
 
 const ResultGrid = () => {
+  const dispatch = useDispatch()
     const {query,activeTab,results,loading,error} = useSelector((store)=>store.search)
 
     
-   const getData = async ()=>{
-    let data
-        if(activeTab == 'photos'){
-             data = await fetchPhotos(query)
-        }
-        if(activeTab == 'videos'){
-             data = await fetchVideos(query)
-        }
-   }
+  
 
    useEffect(function(){
+     const getData = async ()=>{
+    let data
+        if(activeTab == 'photos'){
+            let response = await fetchPhotos(query)
+            data = response.results.map((item)=>({
+              id:item.id,
+              type:'photo',
+              title:item.alt_description,
+              thumbnail:item.urls.small,
+              src:item.urls.full
+            }))
+        }
+        if(activeTab == 'videos'){
+             let response = await fetchVideos(query)
+            data = response.videos.map((item)=>({
+              id:item.id,
+              type:'video',
+              title:item.user.name || 'video',
+              thumbnail:item.image,
+              src:item.video_files[0].link
+            }))
+        }
+        dispatch(setResults(data))
+   }
     getData()
-   },[query])
+   }, [query,activeTab])
   return (
     <div>
-      <button onClick={}>Get Data</button>
+      
     </div>
   )
 }
