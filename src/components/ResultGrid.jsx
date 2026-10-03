@@ -25,7 +25,8 @@ const ResultGrid = () => {
               type:'photo',
               title:item.alt_description,
               thumbnail:item.urls.small,
-              src:item.urls.full
+              src:item.urls.full,
+              url:item.links.html
             }))
         }
         if(activeTab == 'videos'){
@@ -35,7 +36,8 @@ const ResultGrid = () => {
               type:'video',
               title:item.user.name || 'video',
               thumbnail:item.image,
-              src:item.video_files[0].link
+              src:item.video_files[0].link,
+              url:item.url
             }))
         }
         dispatch(setResults(data))
@@ -44,16 +46,19 @@ const ResultGrid = () => {
    }
    }
     getData()
-   }, [query,activeTab])
+   }, [query,activeTab,dispatch])
    if(error) return <h1>Error</h1>
    if(loading) return <h1>Loading.....</h1>
   return (
     <div className='flex justify-between flex-wrap w-full gap-6 overflow-auto px-10'>
-      {results.map((item,idx)=>{
+      
+      
+         {results.map((item,idx)=>{
           return <div key={idx}>
             <ResultCard item = {item}/>
           </div>
-      })}
+      })} 
+     
     </div>
   )
 }

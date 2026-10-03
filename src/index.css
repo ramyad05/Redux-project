@@ -3,3 +3,15 @@
 #bottom{
     background: linear-gradient(transparent,black);
 }
+
+*{
+    font-family:'helvetica neue';
+}
+:root{
+    --c1:rgb(7, 35, 67);
+    --c2:rgb(20, 65, 100);
+    --c3:rgb(29, 84, 100);
+    --c4:rgb(244, 244, 244);
+
+
+}
